@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>价格如下</title>
+    <style>
+        body {
+            background-image: url('https://fal.media/files/panda/Wt3xrYccREKyEU0H68tqE.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        #result, #price {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #result {
+            font-size: 20px; /* 将字体大小从24px减小到20px */
+            color: #333;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        #price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4CAF50;
+            text-shadow: 
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
+            -webkit-text-stroke: 1px white;
+        }
+        a {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 10px 20px;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+        .highlight {
+            color: #000;
+            font-weight: bold;
+            text-shadow: 
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
+            -webkit-text-stroke: 1px white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>价格如下</h1>
+        <p id="result"></p>
+        <p id="price">￥10</p>
+        <a href="index.html">返回选择页面</a>
+
+        <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            const brand = urlParams.get('brand');
+            const model = urlParams.get('model');
+            const result = document.getElementById('result');
+
+            if (brand && model) {
+                result.innerHTML = `您选择了 <span class="highlight">${brand}</span> 品牌的 <span class="highlight">${model}</span> 型号`;
+            } else {
+                result.textContent = '未能获取选择的品牌和型号信息';
+            }
+        </script>
+    </div>
+</body>
+</html>

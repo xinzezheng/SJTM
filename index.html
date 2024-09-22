@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手机贴膜型号选择</title>
+    <style>
+        body {
+            background-image: url('https://fal.media/files/panda/Wt3xrYccREKyEU0H68tqE.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+        }
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(221, 221, 221, 0.5);
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        button {
+            display: block;
+            width: 200px;
+            margin: 30px auto 0;
+            padding: 10px 20px;
+            text-align: center;
+            color: #007bff;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            color: #0056b3;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>手机贴膜型号选择</h1>
+        <form id="phoneForm" action="result.html" method="get">
+            <label for="brand">选择品牌：</label>
+            <select id="brand" name="brand" required>
+                <option value="">请选择品牌</option>
+                <option value="苹果">苹果</option>
+                <option value="三星">三星</option>
+                <option value="小米">小米</option>
+                <option value="华为">华为</option>
+                <option value="OPPO">OPPO</option>
+                <option value="vivo">vivo</option>
+                <option value="一加">一加</option>
+                <option value="魅族">魅族</option>
+                <option value="中兴">中兴</option>
+                <option value="联想">联想</option>
+                <option value="红米">红米</option>
+                <option value="iQOO">iQOO</option>
+                <option value="真我">真我（realme）</option>
+            </select>
+
+            <label for="model">选择型号：</label>
+            <select id="model" name="model" required>
+                <option value="">请选择型号</option>
+            </select>
+
+            <button type="submit">查找</button>
+        </form>
+        <p id="result"></p>
+
+        <script>
+            const brandSelect = document.getElementById('brand');
+            const modelSelect = document.getElementById('model');
+            const result = document.getElementById('result');
+
+            const phoneModels = {
+                '苹果': [
+                    'iPhone 5', 'iPhone 5s', 'iPhone 6', 'iPhone 6s', 'iPhone 6s Plus',
+                    'iPhone 7', 'iPhone 7 Plus', 'iPhone 8', 'iPhone 8 Plus', 'iPhone X',
+                    'iPhone XR', 'iPhone XS', 'iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max',
+                    'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Mini', 'iPhone 12 Pro Max',
+                    'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Mini', 'iPhone 13 Pro Max',
+                    'iPhone 14', 'iPhone 14 Pro', 'iPhone 14 Plus', 'iPhone 14 Pro Max',
+                    'iPhone 15', 'iPhone 15 Pro', 'iPhone 15 Plus', 'iPhone 15 Pro Max',
+                    'iPhone 16', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 16 Pro Max'
+                ],
+                '三星': [
+                    'S24', 'S24+', 'S24 Ultra', 'S23', 'S23+', 'S23 Ultra',
+                    'S22', 'S22+', 'S22 Ultra', 'S21', 'S21+', 'S21 Ultra',
+                    'Note 20', 'Note 10', 'Note 10+', 'Note 10e',
+                    'A55', 'A54', 'A53', 'A52', 'A42', 'A32', 'A02s'
+                ],
+                '华为': [
+                    '华为Pura70', '华为P50E', '华为P40', '华为P30', '华为P20', '华为P20pro', '华为P10', '华为P10Plus', '华为P9',
+                    '华为Mate60', '华为Mate50', '华为Mate50E', '华为Mate30', '华为Mate20', '华为Mate20X', '华为Mate10', '华为Mate10pro', '华为Mate9',
+                    '华为Nova12', '华为Nova12活力版', '华为Hi Nova12 SE', '华为Nova11', '华为Nova11 SE', '华为Nova9青春版', '华为Nova8 SE',
+                    '华为Nova7', '华为Nova7 SE', '华为Nova6', '华为Nova6pro', '华为Nova5', '华为Nova5pro', '华为Nova5i', '华为Nova5z',
+                    '华为Nova5ipro', '华为Nova4', '华为Nova4高配版', '华为Nova4e', '华为Nova3', '华为Nova3i', '华为Nova3e', '华为Nova2',
+                    '华为畅享70pro', '华为畅享70', '华为畅享70S', '华为Hi 畅享70pro', '华为畅享60', '华为畅享60pro', '华为畅享50', '华为畅享50pro',
+                    '华为畅享20', '华为畅享20Plus', '华为畅享20e', '华为畅享Z', '华为畅享10', '华为畅享10Plus', '华为畅享10e',
+                    '华为畅享9', '华为畅享9Plus', '华为畅享9e', '华为畅享9S'
+                ],
+                '小米': [
+                    '小米14', '小米13', '小米11青春版', '小米10青春版', '小米9', '小米9pro',
+                    '小米8', '小米8pro', '小米8SE', '小米8透明版', '小米6', '小米5'
+                ],
+                'OPPO': [],
+                'vivo': [],
+                '一加': [],
+                '魅族': [],
+                '中兴': [],
+                '联想': [],
+                '红米': [
+                    '红米K70', '红米K70pro', '红米K70E', '红米K70 至尊版', '红米K60', '红米K60pro', '红米K60E', '红米K60 至尊版',
+                    '红米K50', '红米K50pro', '红米K50E', '红米K50 至尊版', '红米K40S', '红米K40', '红米K40pro', '红米K30', '红米K30i',
+                    '红米K30纪念版', '红米K30至尊纪念版', '红米K30S至尊纪念版', '红米K20', '红米K20pro', '红米Turbo3',
+                    '红米note14', '红米note14pro', '红米note14pro+', '红米note14R', '红米note13', '红米note13pro', '红米note13Rpro',
+                    '红米note12', '红米note12pro', '红米note12pro+', '红米note12TPro', '红米note12Turbo', '红米note12R', '红米note12Rpro',
+                    '红米note11', '红米note11pro', '红米note11pro+', '红米note11TPro', '红米note11TPro+', '红米note10', '红米note10pro',
+                    '红米note9', '红米note9 4G', '红米note9pro', '红米note8', '红米note8pro', '红米note7'
+                ],
+                'iQOO': [],
+                '真我': []
+            };
+
+            brandSelect.addEventListener('change', function() {
+                const brand = this.value;
+                modelSelect.innerHTML = '<option value="">请选择型号</option>';
+                
+                if (brand in phoneModels) {
+                    phoneModels[brand].forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = model;
+                        option.textContent = model;
+                        modelSelect.appendChild(option);
+                    });
+                }
+            });
+
+            // 移除原有的 form 提交事件监听器
+        </script>
+    </div>
+</body>
+</html>
