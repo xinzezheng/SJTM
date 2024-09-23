@@ -3,113 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>价格如下</title>
+    <title>查找结果</title>
     <style>
         body {
-            background-image: url('https://fal.media/files/panda/Wt3xrYccREKyEU0H68tqE.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            background-image: url('https://fal.media/files/panda/Wt3xrYccREKyEU0H68tqE.png');
+            background-size: cover;
+            background-position: center;
         }
         .container {
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            width: 95%;
-            max-width: 500px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            animation: blurIn 1s ease-out forwards;
+            text-align: center;
+        }
+        @keyframes blurIn {
+            0% {
+                backdrop-filter: blur(0px);
+            }
+            100% {
+                backdrop-filter: blur(10px);
+            }
         }
         h1 {
-            color: #333;
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 30px;
+            margin-bottom: 1.5rem;
         }
-        #result, #price {
-            text-align: center;
-            margin-bottom: 20px;
+        p {
+            font-size: 1.2rem;
         }
-        #result {
-            font-size: 20px; /* 将字体大小从24px减小到20px */
-            color: #333;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-            background-color: rgba(255, 255, 255, 0.3);
-            padding: 15px;
-            border-radius: 10px;
+        .back-button {
+            display: inline-block;
+            padding: 0.7rem 1rem;
+            background: rgba(0, 122, 255, 0.7);
             backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-        #price {
-            font-size: 36px;
-            font-weight: bold;
-            color: #4CAF50;
-            text-shadow: 
-                -1px -1px 0 #fff,
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff;
-            -webkit-text-stroke: 1px white;
-        }
-        a {
-            display: block;
-            width: 200px;
-            margin: 30px auto 0;
-            padding: 10px 20px;
-            text-align: center;
-            color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
             text-decoration: none;
-            font-size: 18px;
-            background-color: rgba(255, 255, 255, 0.3);
-            border: 2px solid #007bff;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            margin-top: 1rem;
         }
-        a:hover {
-            background-color: rgba(0, 123, 255, 0.2);
-            color: #0056b3;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        .back-button:hover {
+            background-color: rgba(0, 86, 179, 0.7);
         }
-        .highlight {
-            color: #000;
-            font-weight: bold;
-            text-shadow: 
-                -1px -1px 0 #fff,
-                1px -1px 0 #fff,
-                -1px 1px 0 #fff,
-                1px 1px 0 #fff;
-            -webkit-text-stroke: 1px white;
+        .back-button:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>价格如下</h1>
-        <p id="result"></p>
-        <p id="price">￥10</p>
-        <a href="index.html">返回选择页面</a>
-
-        <script>
-            const urlParams = new URLSearchParams(window.location.search);
-            const brand = urlParams.get('brand');
-            const model = urlParams.get('model');
-            const result = document.getElementById('result');
-
-            if (brand && model) {
-                result.innerHTML = `您选择了 <span class="highlight">${brand}</span> 品牌的 <span class="highlight">${model}</span> 型号`;
-            } else {
-                result.textContent = '未能获取选择的品牌和型号信息';
-            }
-        </script>
+        <h1>查找结果</h1>
+        <p>您选择的型号是：<span id="selectedModel"></span></p>
+        <p>该型号贴膜价格为：<span id="modelPrice"></span></p>
+        <a href="index.html" class="back-button">返回选择页面</a>
     </div>
+
+    <script>
+        // 从URL参数中获取选择的型号
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedModel = urlParams.get('model');
+        
+        // 显示选择的型号
+        document.getElementById('selectedModel').textContent = selectedModel || '未选择型号';
+
+        // 显示统一价格
+        document.getElementById('modelPrice').textContent = '￥10';
+    </script>
 </body>
 </html>
